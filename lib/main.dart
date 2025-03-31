@@ -36,11 +36,9 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-
       body: Center(
-        child: Container(
-          child: Column(  // Use Column to arrange widgets vertically
-            mainAxisSize: MainAxisSize.min, // Prevents unnecessary stretching
+          child: Column(  //(Use Column to arrange widgets vertically)
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Welcome to the Home Screen",
@@ -58,8 +56,7 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }
 
@@ -100,13 +97,12 @@ class _PremiseSheetState extends State<PremiseSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
       height: MediaQuery.of(context).size.height,
       child: Column(
         children: [
           Container(
             color: Colors.green[900],
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -128,31 +124,41 @@ class _PremiseSheetState extends State<PremiseSheet> {
           SizedBox(height: 20,),
           // Text("Select The Premise Type", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,)),
 
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Select The Premise Type",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 0), // Apply padding
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Select The Premise Type",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
             ),
           ),
 
           Expanded(
-            child: ListView.builder(
-              itemCount: premiseTypes.length,
-              itemBuilder: (context, index) {
-                return RadioListTile(               //(The premise types will display with radio buttons)
-                    title: Text(premiseTypes[index]),
-                    value: premiseTypes[index],
-                    groupValue: selectedPremise,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedPremise = value;
-                      });
-                    }
-                );
-              },
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 6), // Padding around list items
+              child: ListView.builder(
+                itemCount: premiseTypes.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 0), // Spacing between items
+                    child: RadioListTile(
+                      title: Text(premiseTypes[index]),
+                      value: premiseTypes[index],
+                      groupValue: selectedPremise,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedPremise = value;
+                        });
+                      },
+                    ),
+                  );
+                },
+              ),
             ),
           ),
+
           Divider(),
           SizedBox(height: 20,),
           ElevatedButton(
@@ -177,46 +183,5 @@ class _PremiseSheetState extends State<PremiseSheet> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
