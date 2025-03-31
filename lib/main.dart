@@ -20,15 +20,43 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Home Screen")),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () => _showTheSheet(context),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blueAccent,
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 50),
+      // appBar: AppBar(title: Text("Home Screen", style: TextStyle(color: Colors.white),),backgroundColor: Colors.green[900],),
+      appBar: AppBar(
+        title: Text(
+          "Home Screen",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.green[900],
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home, color: Colors.white),
+            onPressed: () {
+              print("Home icon pressed");
+            },
           ),
-            child: Text("Start", style: TextStyle(color: Colors.white))
+        ],
+      ),
+
+      body: Center(
+        child: Container(
+          child: Column(  // Use Column to arrange widgets vertically
+            mainAxisSize: MainAxisSize.min, // Prevents unnecessary stretching
+            children: [
+              Text(
+                "Welcome to the Home Screen",
+                style: TextStyle(color: Colors.deepOrange, fontSize: 22),
+              ),
+              SizedBox(height: 20), // Proper spacing
+              ElevatedButton(
+                onPressed: () => _showTheSheet(context),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueAccent,
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 50),
+                ),
+                child: Text("Start", style: TextStyle(color: Colors.white)),
+              ),
+            ],
+          ),
         ),
       ),
     );
