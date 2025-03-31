@@ -7,10 +7,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
-    );
+    return MaterialApp(debugShowCheckedModeBanner: false, home: HomeScreen());
   }
 }
 
@@ -20,12 +17,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: Text("Home Screen", style: TextStyle(color: Colors.white),),backgroundColor: Colors.green[900],),
       appBar: AppBar(
-        title: Text(
-          "Home Screen",
-          style: TextStyle(color: Colors.white),
-        ),
+        title: Text("Home Screen", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.green[900],
         actions: [
           IconButton(
@@ -37,26 +30,23 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: Center(
-          child: Column(  //(Use Column to arrange widgets vertically)
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Welcome to the Home Screen",
-                style: TextStyle(color: Colors.deepOrange, fontSize: 22),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Welcome to the Home Screen", style: TextStyle(color: Colors.deepOrange, fontSize: 22),),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => _showTheSheet(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blueAccent,
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 50),
               ),
-              SizedBox(height: 20), // Proper spacing
-              ElevatedButton(
-                onPressed: () => _showTheSheet(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 50),
-                ),
-                child: Text("Start", style: TextStyle(color: Colors.white)),
-              ),
-            ],
-          ),
+              child: Text("Start", style: TextStyle(color: Colors.white)),
+            ),
+          ],
         ),
-      );
+      ),
+    );
   }
 }
 
@@ -65,7 +55,7 @@ void _showTheSheet(BuildContext context) {
     context: context,
     isScrollControlled: true,
     builder: (context) {
-      return FractionallySizedBox(      //(It will display fullscreen)
+      return FractionallySizedBox(                      //(It will display fullscreen)
         heightFactor: 1,
         child: PremiseSheet(),
       );
@@ -96,92 +86,140 @@ class _PremiseSheetState extends State<PremiseSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        children: [
-          Container(
-            color: Colors.green[900],
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "PREMISE TYPE",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                    color: Colors.white,
+    return Column(
+      children: [
+        Container(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: [
+              Container(
+                color: Colors.green[900],
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "PREMISE TYPE",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white,),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.close, color: Colors.white),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              Padding(padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0,),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text("Select The Premise Type", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                ),
+              ),
+
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 6,), // Padding around list items
+                  child: ListView.builder(
+                    itemCount: premiseTypes.length,
+                    itemBuilder: (context, index) {
+                      return Padding(padding: EdgeInsets.symmetric(vertical: 0,), // Spacing between items
+                        child: RadioListTile(
+                          title: Text(premiseTypes[index]),
+                          value: premiseTypes[index],
+                          groupValue: selectedPremise,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedPremise = value;
+                            });
+                          },
+                        ),
+                      );
+                    },
                   ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.close, color: Colors.white),
-                  onPressed: () => Navigator.pop(context),
+              ),
+
+              Divider(),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed:
+                    selectedPremise != null
+                        ? () {
+                          Navigator.pop(context); //(Close the bottom sheet)
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => NextScreen(selectedPremise!),
+                            ),
+                          );
+                        }
+                        : null,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orangeAccent,
+                  disabledBackgroundColor: Colors.grey,
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 50),
                 ),
-              ],
-            ),
-          ),
-          SizedBox(height: 20,),
-          // Text("Select The Premise Type", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18,)),
-
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 0), // Apply padding
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Select The Premise Type",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                child: Text("Submit", style: TextStyle(color: Colors.white)),
               ),
-            ),
+            ],
           ),
-
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 6), // Padding around list items
-              child: ListView.builder(
-                itemCount: premiseTypes.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 0), // Spacing between items
-                    child: RadioListTile(
-                      title: Text(premiseTypes[index]),
-                      value: premiseTypes[index],
-                      groupValue: selectedPremise,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedPremise = value;
-                        });
-                      },
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
-
-          Divider(),
-          SizedBox(height: 20,),
-          ElevatedButton(
-            onPressed: selectedPremise != null
-                ? () {
-              Navigator.pop(context); //(Close the bottom sheet)
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NextScreen(selectedPremise!)),
-              );
-            }
-                : null,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.orangeAccent,
-              disabledBackgroundColor: Colors.grey,
-              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 50),
-            ),
-            child: Text("Submit", style: TextStyle(color: Colors.white)),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
 
+class NextScreen extends StatelessWidget {
+  final String selectedPremise;
 
+  NextScreen(this.selectedPremise);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Selected Premise", style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.green[900],
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "You have selected: $selectedPremise",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            Text(
+              "Successfully submitted",
+              style: TextStyle(color: Colors.redAccent, fontSize: 18),
+            ),
+            SizedBox(height: 20),
+            Text(
+              "Thank you for selecting the premise type",
+              style: TextStyle(fontSize: 18),
+            ),
+            SizedBox(height: 40),
+            ElevatedButton(
+              onPressed: () {             //(Navigate back to HomeScreen)
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                  (route) => false,     //(Removes all previous routes)
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blueAccent,
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 50),
+              ),
+              child: Text("Go to Home", style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
