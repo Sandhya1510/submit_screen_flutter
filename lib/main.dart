@@ -55,11 +55,9 @@ void _showTheSheet(BuildContext context) {
     context: context,
     isScrollControlled: true,
     builder: (context) {
-      return FractionallySizedBox(                      //(It will display fullscreen)
-        heightFactor: 1,
-        child: PremiseSheet(),
-      );
+      return PremiseSheet();
     },
+
   );
 }
 
@@ -119,7 +117,7 @@ class _PremiseSheetState extends State<PremiseSheet> {
 
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 6,), // Padding around list items
+                  padding: EdgeInsets.symmetric(horizontal: 6,),
                   child: ListView.builder(
                     itemCount: premiseTypes.length,
                     itemBuilder: (context, index) {
@@ -139,7 +137,6 @@ class _PremiseSheetState extends State<PremiseSheet> {
                   ),
                 ),
               ),
-
               Divider(),
               SizedBox(height: 20),
               ElevatedButton(
@@ -203,8 +200,8 @@ class NextScreen extends StatelessWidget {
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: () {             //(Navigate back to HomeScreen)
+            ElevatedButton(                 //(Button for Navigate back to HomeScreen)
+              onPressed: () {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => HomeScreen()),
