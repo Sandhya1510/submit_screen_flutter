@@ -33,7 +33,10 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Welcome to the Home Screen", style: TextStyle(color: Colors.deepOrange, fontSize: 22),),
+            Text(
+              "Welcome to the Home Screen",
+              style: TextStyle(color: Colors.deepOrange, fontSize: 22),
+            ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () => _showTheSheet(context),
@@ -54,10 +57,21 @@ void _showTheSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
+    backgroundColor: Colors.black,
     builder: (context) {
-      return PremiseSheet();
+      return Align(
+        alignment: Alignment.center,
+        child: Container(
+          height: 650,
+          width: 320,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.red),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
+          child: PremiseSheet(),
+        ),
+      );
     },
-
   );
 }
 
@@ -79,91 +93,240 @@ class _PremiseSheetState extends State<PremiseSheet> {
     "Mixed Use",
     "House",
     "Villa",
-    "AWQAF Properties",
   ];
+
+  //   @override
+  //   Widget build(BuildContext context) {
+  //     return Scaffold(
+  //       appBar: PreferredSize(
+  //         preferredSize: Size.fromHeight(50), // Adjust height
+  //         child: Container(
+  //           decoration: BoxDecoration(
+  //             color: Color(0xFF01474D), // Background color of the AppBar
+  //             borderRadius: BorderRadius.only(
+  //               topLeft: Radius.circular(20.0), // Top-left corner radius
+  //               topRight: Radius.circular(20.0), // Top-right corner radius
+  //             ),
+  //           ),
+  //           child: AppBar(
+  //             automaticallyImplyLeading: false,
+  //             backgroundColor: Colors.transparent,
+  //             flexibleSpace: Padding(
+  //               padding: EdgeInsets.only(left: 10, right: 15, bottom: 5),
+  //               child: Align(
+  //                 alignment: Alignment.bottomLeft,
+  //                 child: Row(
+  //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                   // Space between title and close button
+  //                   children: [
+  //                     Text(
+  //                       "PREMISE TYPE",
+  //                       style: TextStyle(
+  //                         color: Colors.white,
+  //                         fontSize: 14,
+  //                         fontWeight: FontWeight.bold,
+  //                       ),
+  //                     ),
+  //                     GestureDetector(
+  //                       onTap: () => Navigator.pop(context),
+  //                       child: Container(
+  //                         decoration: BoxDecoration(
+  //                           color: Colors.white,
+  //                           shape: BoxShape.circle,
+  //                         ),
+  //                         padding: EdgeInsets.all(3),
+  //                         child: Icon(
+  //                           Icons.close_rounded,
+  //                           color: Color(0xFF01474D),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //       body: ClipRRect(
+  //         borderRadius: BorderRadius.only(
+  //           bottomLeft: Radius.circular(20.0),
+  //           bottomRight: Radius.circular(20.0),
+  //         ),
+  //         child: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: [
+  //             Padding(
+  //               padding: EdgeInsets.only(left: 25, top: 10),
+  //               child: Text(
+  //                 "Select The Premise Type",
+  //                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+  //               ),
+  //             ),
+  //             Expanded(
+  //               child: Container(
+  //                 child: ListView.builder(
+  //                   itemCount: premiseTypes.length,
+  //                   itemBuilder: (context, index) {
+  //                     return RadioListTile(
+  //                       title: Text(premiseTypes[index]),
+  //                       value: premiseTypes[index],
+  //                       groupValue: selectedPremise,
+  //                       onChanged: (value) {
+  //                         setState(() {
+  //                           selectedPremise = value;
+  //                         });
+  //                       },
+  //                       dense: true,
+  //                       contentPadding: EdgeInsets.symmetric(
+  //                         horizontal: 25,
+  //                         vertical: -15,
+  //                       ),
+  //                     );
+  //                   },
+  //                 ),
+  //               ),
+  //             ),
+  //             Divider(),
+  //             Align(
+  //               alignment: Alignment.center,
+  //               child: ElevatedButton(
+  //                 onPressed: selectedPremise != null
+  //                     ? () {
+  //                   Navigator.pop(context); // Close the bottom sheet
+  //                   Navigator.push(
+  //                     context,
+  //                     MaterialPageRoute(
+  //                       builder: (context) => NextScreen(selectedPremise!),
+  //                     ),
+  //                   );
+  //                 }
+  //                     : null,
+  //                 style: ElevatedButton.styleFrom(
+  //                   backgroundColor: Color(0xFFF6323E),
+  //                   disabledBackgroundColor: Colors.grey,
+  //                 ),
+  //                 child: Text("Submit", style: TextStyle(color: Colors.white)),
+  //               ),
+  //             ),
+  //             SizedBox(height: 8),
+  //           ],
+  //         ),
+  //       ),
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            children: [
-              Container(
-                color: Colors.green[900],
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+      ),
+      child: Column(
+        children: [
+          PreferredSize(
+            preferredSize: Size.fromHeight(80),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Color(0xFF01474D),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
+                ),
+              ),
+              padding: EdgeInsets.only(left: 10, right: 15, bottom: 5, top: 25),
+              child: Align(
+                alignment: Alignment.bottomLeft,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       "PREMISE TYPE",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white,),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.close, color: Colors.white),
-                      onPressed: () => Navigator.pop(context),
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        padding: EdgeInsets.all(1),
+                        child: Icon(
+                          Icons.close_rounded,
+                          color: Color(0xFF01474D),
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 20),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0,),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text("Select The Premise Type", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
-                ),
-              ),
-
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 6,),
-                  child: ListView.builder(
-                    itemCount: premiseTypes.length,
-                    itemBuilder: (context, index) {
-                      return Padding(padding: EdgeInsets.symmetric(vertical: 0,), // Spacing between items
-                        child: RadioListTile(
-                          title: Text(premiseTypes[index]),
-                          value: premiseTypes[index],
-                          groupValue: selectedPremise,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedPremise = value;
-                            });
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-              Divider(),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed:
-                    selectedPremise != null
-                        ? () {
-                          Navigator.pop(context); //(Close the bottom sheet)
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => NextScreen(selectedPremise!),
-                            ),
-                          );
-                        }
-                        : null,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orangeAccent,
-                  disabledBackgroundColor: Colors.grey,
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 50),
-                ),
-                child: Text("Submit", style: TextStyle(color: Colors.white)),
-              ),
-            ],
+            ),
           ),
-        ),
-      ],
+          SizedBox(height: 10,),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Select The Premise Type",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            ),
+          ),
+
+          Expanded(
+            child: ListView.builder(
+              itemCount: premiseTypes.length,
+              itemBuilder: (context, index) {
+                return RadioListTile(
+                  title: Text(premiseTypes[index]),
+                  value: premiseTypes[index],
+                  groupValue: selectedPremise,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedPremise = value;
+                    });
+                  },
+                  dense: true,
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 25,
+                    vertical: -15,
+                  ),
+                );
+              },
+            ),
+          ),
+          Divider(),
+          // Submit Button centered at the bottom
+          Align(
+            alignment: Alignment.center,
+            child: ElevatedButton(
+              onPressed:
+                  selectedPremise != null
+                      ? () {
+                        Navigator.pop(context); // Close the bottom sheet
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NextScreen(selectedPremise!),
+                          ),
+                        );
+                      }
+                      : null,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFFF6323E),
+                disabledBackgroundColor: Colors.grey,
+              ),
+              child: Text("Submit", style: TextStyle(color: Colors.white)),
+            ),
+          ),
+          SizedBox(height: 8), // Small space after the button
+        ],
+      ),
     );
   }
 }
@@ -200,12 +363,13 @@ class NextScreen extends StatelessWidget {
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: 40),
-            ElevatedButton(                 //(Button for Navigate back to HomeScreen)
+            ElevatedButton(
+              //(Button for Navigate back to HomeScreen)
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => HomeScreen()),
-                  (route) => false,     //(Removes all previous routes)
+                  (route) => false, //(Removes all previous routes)
                 );
               },
               style: ElevatedButton.styleFrom(
